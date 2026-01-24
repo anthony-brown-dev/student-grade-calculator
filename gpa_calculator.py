@@ -1,3 +1,4 @@
+# Author: Anthony Brown
 def calculate_gpa(grades):
     """
     Calculates the GPA based on a list of letter grades.
