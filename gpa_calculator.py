@@ -2,13 +2,14 @@
 def calculate_gpa(grades):
     """
     Calculates the GPA based on a list of letter grades.
-    Standard scale: A=4.0, B=3.0, C=2.0, D=1.0, F=0.0
+    Now supports plus/minus grades (A+, B-, etc.)
+    Standard scale: A+=4.0, A=4.0, A-=3.7, B+=3.3, B=3.0, etc.
     """
     points = {
-        'A': 4.0,
-        'B': 3.0,
-        'C': 2.0,
-        'D': 1.0,
+        'A+': 4.0, 'A': 4.0, 'A-': 3.7,
+        'B+': 3.3, 'B': 3.0, 'B-': 2.7,
+        'C+': 2.3, 'C': 2.0, 'C-': 1.7,
+        'D+': 1.3, 'D': 1.0, 'D-': 0.7,
         'F': 0.0
     }
     
@@ -16,7 +17,7 @@ def calculate_gpa(grades):
     valid_grades = 0
     
     for grade in grades:
-        grade_upper = grade.upper()
+        grade_upper = grade.upper().strip()
         if grade_upper in points:
             total_points += points[grade_upper]
             valid_grades += 1
@@ -29,8 +30,8 @@ def calculate_gpa(grades):
     return total_points / valid_grades
 
 def main():
-    print("--- Student GPA Calculator ---")
-    print("Enter your grades (A, B, C, D, F). Type 'done' to finish.")
+    print("--- Student GPA Calculator (Enhanced) ---")
+    print("Enter your grades (A+, A, A-, B+, B, etc.). Type 'done' to finish.")
     
     student_grades = []
     
@@ -40,10 +41,8 @@ def main():
         if entry.lower() == 'done':
             break
             
-        if entry.upper() in ['A', 'B', 'C', 'D', 'F']:
-            student_grades.append(entry.upper())
-        else:
-            print("Please enter a valid letter grade.")
+        # Accept any format the user enters
+        student_grades.append(entry)
             
     if student_grades:
         gpa = calculate_gpa(student_grades)
